@@ -1,0 +1,58 @@
+<html ng-app="app.todos">
+    <head>
+        <title>Node/Angular Todos</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.8.1/css/xeditable.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
+        <script src="assets/js/main/app.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.8.1/js/xeditable.min.js"></script>
+        <script src="assets/js/main/service/svTodos.js"></script>
+        
+        
+    </head>
+    <body ng-controller="todoController">
+        
+        <div class="container">
+            <div class="jumbotron text-center">
+                <h1>{{ appName }} <span class="label label-info">{{ todos.length }}</span> </h1>
+            </div>
+            <div id="todo-list" class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div ng-repeat="todo in todos">
+                        <div class="row" >
+                            
+                            <div class="col-sm-1">
+                                <input type="checkbox" ng-model="todo.isDone" ng-change="updateTodo(todo)">
+                            </div>
+                            <div class="col-sm-9">
+                                <span ng-class="{strike: todo.isDone}" editable-text="todo.text" e-form="textBtnForm" onaftersave="updateTodo(todo)"> {{ todo.text }} </span>
+                            </div>
+                            <div class="col-sm-2">
+                                <a ng-click="deleteTodo(todo)"><i class="fa fa-remove"></i></a>
+                                <a ng-click="textBtnForm.$show()" ng-hide="textBtnForm.#visible()"><i class="fa fa-edit"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x" ></span>
+            </p>
+            <div id="todo-form" class="row">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                    <form>
+                        <div class="form-group">
+                            <input placeholder="What do you want to do?" ng-model="formData.text" type="text" class="form-control input-lg text-center">
+                        </div>
+                        <button ng-click="createTodo()"  ng-disabled="!formData.text" class="btn btn-primary btn-lg" type="submit">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

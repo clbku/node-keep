@@ -1,0 +1,9 @@
+html {
+    overflow-y: scroll;
+}
+#todo-list {
+    margin-bottom: 30px;
+}
+.strike {
+    text-decoration: line-through;
+}
